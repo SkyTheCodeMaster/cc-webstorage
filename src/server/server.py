@@ -33,4 +33,7 @@ async def ws_handler(request: web.Request) -> web.Response:
   return ws
 
 app = web.Application()
+
+app.add_routes(routes)
+
 web.run_app(app,host=HOST,port=PORT)
