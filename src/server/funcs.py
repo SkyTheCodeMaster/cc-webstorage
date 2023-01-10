@@ -86,3 +86,7 @@ async def getFreeSpace(folder: str) -> Union[int,False]:
 
 async def getCapacity(folder: str) -> int:
   return CAPACITY
+
+async def isDir(folder: str) -> bool:
+  path = os.path.join(FILEPATH,folder)
+  return os.path.isdir(path)
