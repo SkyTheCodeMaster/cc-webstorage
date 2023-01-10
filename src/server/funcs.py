@@ -32,9 +32,13 @@ async def makeDir(folder: str) -> bool:
   except:
     return False
 
-async def list(folder:str) -> Union[list[str],False]:
+async def list(folder: str) -> Union[list[str],False]:
   path = os.path.join(FILEPATH,folder)
   try:
     return await aos.listdir(path)
   except FileNotFoundError:
     return False
+
+async def exists(file: str) -> bool:
+  path = os.path.join(FILEPATH,file)
+  return os.access(path,os.F_OK)
