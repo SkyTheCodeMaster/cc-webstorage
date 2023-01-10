@@ -90,3 +90,20 @@ async def getCapacity(folder: str) -> int:
 async def isDir(folder: str) -> bool:
   path = os.path.join(FILEPATH,folder)
   return os.path.isdir(path)
+
+async def attributes(file: str) -> Union[dict[str,Union[int,bool]],False]:
+  path = os.path.join(FILEPATH,file)
+  try:
+    isdir = await isDir(file)
+    readonly = await isReadOnly(file)
+    stat = await aos.stat(path)
+    attr = {
+      "size": stat.st_size,
+      "isDir": isdir,
+      "isReadOnly": readonly,
+      "created": stat.st_ctime,
+      "modified": stat.st_mtime,
+    }
+    return attr
+  except:
+    return False
