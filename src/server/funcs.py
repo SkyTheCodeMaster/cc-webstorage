@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import TYPE_CHECKING
 
 import aiofiles
@@ -59,5 +60,13 @@ async def copy(src: str, dst: str) -> bool:
   try:
     await aioshutil.copy2(sPath,dPath)
     return True
+  except:
+    return False
+
+async def getSize(folder: str) -> Union[int,False]:
+  path = os.path.join(FILEPATH,folder)
+  try:
+    size = shutil.disk_usage(path)
+    return size.used
   except:
     return False
