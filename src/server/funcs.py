@@ -83,3 +83,6 @@ async def getFreeSpace(folder: str) -> Union[int,False]:
   if size == False: return False
 
   return CAPACITY - size
+
+async def getCapacity(folder: str) -> int:
+  return CAPACITY
