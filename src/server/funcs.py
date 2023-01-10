@@ -1,9 +1,13 @@
 import os
+from typing import TYPE_CHECKING
 
 import aiofiles
 from aiofiles import os as aos
 
 from config import FILEPATH
+
+if TYPE_CHECKING:
+  from typing import Union
 
 
 async def delete(file: str) -> bool:
@@ -28,3 +32,9 @@ async def makeDir(folder: str) -> bool:
   except:
     return False
 
+async def list(folder:str) -> Union[list[str],False]:
+  path = os.path.join(FILEPATH,folder)
+  try:
+    return await aos.listdir(path)
+  except FileNotFoundError:
+    return False
