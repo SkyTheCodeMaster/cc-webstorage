@@ -6,7 +6,7 @@ import aiofiles
 import aioshutil
 from aiofiles import os as aos
 
-from config import FILEPATH
+from config import FILEPATH,CAPACITY
 
 if TYPE_CHECKING:
   from typing import Union
@@ -78,3 +78,8 @@ async def isReadOnly(folder: str) -> bool:
   except:
     return True
 
+async def getFreeSpace(folder: str) -> Union[int,False]:
+  size = await getSize(folder)
+  if size == False: return False
+
+  return CAPACITY - size
