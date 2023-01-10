@@ -42,3 +42,19 @@ async def list(folder: str) -> Union[list[str],False]:
 async def exists(file: str) -> bool:
   path = os.path.join(FILEPATH,file)
   return os.access(path,os.F_OK)
+
+async def move(src: str, dst: str) -> bool:
+  sPath = os.path.join(FILEPATH,src)
+  dPath = os.path.join(FILEPATH,dst)
+  try:
+    await aos.rename(sPath,dPath)
+    return True
+  except IsADirectoryError:
+    try:
+      dPath = os.path.join(dPath,src)
+      await aos.rename(sPath,dPath)
+      return True
+    except:
+      return False
+  except NotADirectoryError:
+    return False
