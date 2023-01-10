@@ -2,6 +2,7 @@ import os
 from typing import TYPE_CHECKING
 
 import aiofiles
+import aioshutil
 from aiofiles import os as aos
 
 from config import FILEPATH
@@ -47,14 +48,16 @@ async def move(src: str, dst: str) -> bool:
   sPath = os.path.join(FILEPATH,src)
   dPath = os.path.join(FILEPATH,dst)
   try:
-    await aos.rename(sPath,dPath)
+    await aioshutil.move(sPath,dPath)
     return True
-  except IsADirectoryError:
-    try:
-      dPath = os.path.join(dPath,src)
-      await aos.rename(sPath,dPath)
-      return True
-    except:
-      return False
-  except NotADirectoryError:
+  except:
+    return False
+
+async def copy(src: str, dst: str) -> bool:
+  sPath = os.path.join(FILEPATH,src)
+  dPath = os.path.join(FILEPATH,dst)
+  try:
+    await aioshutil.copy2(sPath,dPath)
+    return True
+  except:
     return False
