@@ -20,3 +20,11 @@ async def delete(file: str) -> bool:
   except FileNotFoundError:
     return False
 
+async def makeDir(folder: str) -> bool:
+  path = os.path.join(FILEPATH,folder)
+  try:
+    await aos.makedirs(path,0o777,True)
+    return True
+  except:
+    return False
+
