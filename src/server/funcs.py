@@ -70,3 +70,11 @@ async def getSize(folder: str) -> Union[int,False]:
     return size.used
   except:
     return False
+
+async def isReadOnly(folder: str) -> bool:
+  path = os.path.join(FILEPATH,folder)
+  try:
+    return not os.access(path, os.W_OK)
+  except:
+    return True
+
