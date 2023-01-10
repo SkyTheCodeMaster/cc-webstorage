@@ -11,7 +11,6 @@ from config import FILEPATH,CAPACITY
 if TYPE_CHECKING:
   from typing import Union
 
-
 async def delete(file: str) -> bool:
   path = os.path.join(FILEPATH,file)
   try:
@@ -107,3 +106,38 @@ async def attributes(file: str) -> Union[dict[str,Union[int,bool]],False]:
     return attr
   except:
     return False
+
+async def write(file: str, mode: str, contents: Union[bytes,str]) -> bool:
+  path = os.path.join(FILEPATH,file)
+  try:
+    async with aiofiles.open(path,mode) as f:
+      await f.write(contents)
+    return True
+  except:
+    return False
+
+async def read(file: str, mode: str) -> Union[Union[str,bytes],False]:
+  path = os.path.join(FILEPATH,file)
+  try:
+    async with aiofiles.open(path,mode) as f:
+      contents = await f.read()
+    return contents
+  except:
+    return False
+
+commands = {
+  "attributes": attributes,
+  "isDir": isDir,
+  "getCapacity": getCapacity,
+  "getFreeSpace": getFreeSpace,
+  "isReadOnly": isReadOnly,
+  "getSize": getSize,
+  "copy": copy,
+  "move": move,
+  "exists": exists,
+  "list": list,
+  "makeDir": makeDir,
+  "delete": delete,
+  "write": write,
+  "read": read,
+}
