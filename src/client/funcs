@@ -1,17 +1,5 @@
 Server side:
 Handles file handles, but the actual handles are lua
-delete
-make dir
-list
-exists
-move
-copy
-getFreeSpace
-isReadOnly
-isDir
-getSize
-attributes
-getCapacity
 
 Lua client side:
 complete
